@@ -27,9 +27,13 @@ export class SerialPortService implements OnModuleInit, OnModuleDestroy {
     }
 
     let selectedPort = ports[Math.floor(Math.random() * ports.length)];
-    while (!selectedPort.serialNumber) {
+    let count = 0;
+    while (!selectedPort.serialNumber && count < 10) {
       selectedPort = ports[Math.floor(Math.random() * ports.length)];
+      count++;
     }
+    if (count == 10) console.log('There is not available ports');
+
     console.log(`Selected port: ${selectedPort.path}`);
 
     if (this.port) {
