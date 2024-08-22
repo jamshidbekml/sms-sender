@@ -17,9 +17,9 @@ export class SmsService {
       { phoneNumber, message },
       {
         jobId,
-        attempts: 3, // Number of retry attempts
-        backoff: 5000, // 5 seconds delay before retrying
-        timeout: 10000, // Timeout after 10 seconds
+        attempts: 1, // Number of retry attempts
+        // backoff: 5000, // 5 seconds delay before retrying
+        timeout: 3000, // Timeout after 3 seconds
       },
     );
     return { message: 'SMS request added to queue.', success: true };
