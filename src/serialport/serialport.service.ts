@@ -41,7 +41,7 @@ export class SerialPortService implements OnModuleInit, OnModuleDestroy {
     }
 
     this.port = new SerialPort({
-      path: '/dev/ttyS9',
+      path: '/dev/ttyUSB2',
       baudRate: 9600,
     });
 
