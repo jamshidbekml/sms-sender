@@ -17,9 +17,9 @@ export class SmsService {
       { phoneNumber, message },
       {
         jobId,
-        attempts: 1, // Number of retry attempts
+        // attempts: 1,
         // backoff: 5000, // 5 seconds delay before retrying
-        timeout: 10000, // Timeout after 10 seconds
+        timeout: 30000,
       },
     );
     return { message: 'SMS request added to queue.', success: true };
@@ -49,7 +49,7 @@ export class SmsService {
               resolve();
             }
           });
-        }, index * 300);
+        }, index * 600);
       });
     }
 
