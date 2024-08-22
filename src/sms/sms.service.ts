@@ -39,7 +39,7 @@ export class SmsService {
       `${message}\x1A`,
     ];
 
-    for (const [, command] of commands.entries()) {
+    for (const [index, command] of commands.entries()) {
       await new Promise<void>((resolve, reject) => {
         setTimeout(() => {
           port.write(command, (err) => {
@@ -49,7 +49,7 @@ export class SmsService {
               resolve();
             }
           });
-        }, 300);
+        }, index * 300);
       });
     }
 
