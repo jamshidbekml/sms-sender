@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { SmsService } from './sms.service';
 import { SmsProcessor } from './sms.processor';
 import { SerialportModule } from 'src/serialport/serialport.module';
@@ -26,13 +26,19 @@ import { Queue } from 'bull';
   exports: [SmsService],
   controllers: [SmsController],
 })
-export class SmsModule {
+export class SmsModule implements NestModule {
+  private serverAdapter: ExpressAdapter;
+
   constructor(@InjectQueue('sms') private readonly smsQueue: Queue) {
-    const serverAdapter = new ExpressAdapter();
-    serverAdapter.setBasePath('/admin/queues');
+    this.serverAdapter = new ExpressAdapter();
+    this.serverAdapter.setBasePath('/admin/queues');
     createBullBoard({
       queues: [new BullAdapter(this.smsQueue)],
-      serverAdapter: serverAdapter,
+      serverAdapter: this.serverAdapter,
     });
+  }
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(this.serverAdapter.getRouter()).forRoutes('/admin/queues');
   }
 }
