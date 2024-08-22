@@ -8,7 +8,7 @@ export class SerialPortService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     await this.selectAndOpenPort();
-    this.startPortSwitching();
+    // this.startPortSwitching();
   }
 
   onModuleDestroy() {
@@ -56,7 +56,7 @@ export class SerialPortService implements OnModuleInit, OnModuleDestroy {
         await this.selectAndOpenPort();
       },
       5 * 60 * 1000,
-    ); // Switch every 5 minutes
+    );
   }
 
   getPort(): SerialPort {

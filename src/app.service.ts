@@ -20,7 +20,7 @@ export class AppService {
             throw new InternalServerErrorException(err.message);
           }
         });
-      }, index * 100);
+      }, index * 200);
     });
 
     return { message: `Xabar muvaffaqqiyatli yuborildi!`, success: true };
