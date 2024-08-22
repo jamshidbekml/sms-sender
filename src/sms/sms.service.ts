@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
+import { v4 as uuidv4 } from 'uuid';
 import { SerialPortService } from 'src/serialport/serialport.service';
 
 @Injectable()
@@ -11,7 +12,8 @@ export class SmsService {
   ) {}
 
   async queueSms(phoneNumber: string, message: string) {
-    await this.smsQueue.add({ phoneNumber, message });
+    const jobId = uuidv4();
+    await this.smsQueue.add({ phoneNumber, message }, { jobId });
     return { message: 'SMS request added to queue.', success: true };
   }
 
