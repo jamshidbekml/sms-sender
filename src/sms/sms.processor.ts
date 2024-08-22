@@ -31,7 +31,7 @@ export class SmsProcessor {
     this.logger.error(`Failed job ${job.id} with error: ${error.message}`);
   }
 
-  @Process({ concurrency: 1 })
+  @Process({ concurrency: 5 })
   async handleSmsJob(job: Job<{ phoneNumber: string; message: string }>) {
     const { phoneNumber, message } = job.data;
     const data = await this.smsService.sendSms({ phoneNumber, message });
