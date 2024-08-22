@@ -13,7 +13,15 @@ export class SmsService {
 
   async queueSms(phoneNumber: string, message: string) {
     const jobId = uuidv4();
-    await this.smsQueue.add({ phoneNumber, message }, { jobId });
+    await this.smsQueue.add(
+      { phoneNumber, message },
+      {
+        jobId,
+        attempts: 3, // Number of retry attempts
+        backoff: 5000, // 5 seconds delay before retrying
+        timeout: 10000, // Timeout after 10 seconds
+      },
+    );
     return { message: 'SMS request added to queue.', success: true };
   }
 
