@@ -15,12 +15,12 @@ export class SmsService {
     const jobId = uuidv4();
     await this.smsQueue.add(
       { phoneNumber, message },
-      {
-        jobId,
-        attempts: 1, // Number of retry attempts
-        // backoff: 5000, // 5 seconds delay before retrying
-        timeout: 3000, // Timeout after 3 seconds
-      },
+      //   {
+      //     jobId,
+      //     attempts: 1, // Number of retry attempts
+      //     // backoff: 5000, // 5 seconds delay before retrying
+      //     timeout: 10000, // Timeout after 10 seconds
+      //   },
     );
     return { message: 'SMS request added to queue.', success: true };
   }
