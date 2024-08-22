@@ -39,7 +39,7 @@ export class SmsService {
               resolve();
             }
           });
-        }, index * 300);
+        }, index * 500);
       });
     }
 
